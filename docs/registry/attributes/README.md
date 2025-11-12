@@ -89,6 +89,7 @@ Currently, the following namespaces exist:
 - [OpenTracing](opentracing.md)
 - [OS](os.md)
 - [OTel](otel.md)
+- [Pau](pau.md)
 - [Peer](peer.md)
 - [Pprof](pprof.md)
 - [Process](process.md)

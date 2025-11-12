@@ -1,0 +1,42 @@
+groups:
+  - id: span.pau.pomera
+    type: span
+    stability: development
+    brief: >
+      This span represents a pau.pomera operation.
+    note: >
+      This span is created when performing pomera operations within the Pau project.
+      The `operation.type` attribute MUST be set to 'pomera' for this span type.
+    span_kind: internal
+    attributes:
+      - ref: operation.type
+        requirement_level: required
+        note: Must be set to 'pomera' for this span type
+      - ref: operation.id
+        requirement_level: recommended
+      - ref: operation.status
+        requirement_level: recommended
+      - ref: error.type
+        requirement_level:
+          conditionally_required: If the operation resulted in an error
+
+  - id: span.pau.pom
+    type: span
+    stability: development
+    brief: >
+      This span represents a pau.pom operation.
+    note: >
+      This span is created when performing pom operations within the Pau project.
+      The `operation.type` attribute MUST be set to 'pom' for this span type.
+    span_kind: internal
+    attributes:
+      - ref: operation.type
+        requirement_level: required
+        note: Must be set to 'pom' for this span type
+      - ref: operation.id
+        requirement_level: recommended
+      - ref: operation.status
+        requirement_level: recommended
+      - ref: error.type
+        requirement_level:
+          conditionally_required: If the operation resulted in an error

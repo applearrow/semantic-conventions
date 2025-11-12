@@ -1,0 +1,38 @@
+groups:
+  - id: registry.pau
+    type: attribute_group
+    brief: >
+      Attributes for Pau project operations.
+    attributes:
+      - id: operation.type
+        stability: development
+        type: string
+        brief: >
+          The type of operation being performed.
+        examples: ['pomera', 'pom', 'processing']
+      - id: operation.id
+        stability: development
+        type: string
+        brief: >
+          Unique identifier for the operation.
+        examples: ['op-123', 'batch-456']
+      - id: operation.status
+        stability: development
+        type:
+          allow_custom_values: true
+          members:
+            - id: success
+              value: 'success'
+              brief: 'Operation completed successfully'
+              stability: development
+            - id: failure
+              value: 'failure'  
+              brief: 'Operation failed'
+              stability: development
+            - id: pending
+              value: 'pending'
+              brief: 'Operation is pending'
+              stability: development
+        brief: >
+          The status of the operation.
+        examples: ['success', 'failure', 'pending']
