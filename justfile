@@ -22,8 +22,8 @@ check-debug:
     weaver registry check -r ./model/semantic-search --debug
 
 # Generate artifacts for a specific target
-generate target="markdown" output="output":
-    weaver registry generate -r ./model/semantic-search {{target}} {{output}}
+generate target="markdown" output="pau-registry":
+    weaver registry generate -r ./model/pau {{target}} {{output}}
 
 # Resolve the registry and output to stdout
 resolve:
