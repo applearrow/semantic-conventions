@@ -2,7 +2,7 @@
 
 ## Resumen
 
-Este ejemplo muestra cómo usar Weaver para validar que los spans `semantic-search.pomera` y `semantic-search.pom` 
+Este ejemplo muestra cómo usar Weaver para validar que los spans `semantic-search.pomera_operation` y `semantic-search.pom` 
 cumplen con las convenciones semánticas definidas.
 
 ## Archivos definidos
@@ -15,7 +15,7 @@ Define los atributos disponibles para las operaciones Semantic Search:
 
 ### 2. `/model/semantic-search/spans.yaml`
 Define las convenciones para los spans:
-- `span.semantic_search.pomera`: Span para operaciones semantic-search.pomera
+- `span.semantic_search.pomera_operation`: Span para operaciones semantic-search.pomera_operation
 - `span.semantic_search.pom`: Span para operaciones semantic-search.pom
 
 ## Validación con Weaver

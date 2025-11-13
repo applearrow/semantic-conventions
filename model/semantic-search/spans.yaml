@@ -1,17 +1,17 @@
 groups:
-  - id: span.semantic_search.pomera.internal
+  - id: span.semantic_search.pomera_operation.internal
     type: span
     stability: development
     brief: >
-      This span represents a semantic-search.pomera operation.
+      This span represents a semantic-search.pomera_operation operation.
     note: >
       This span is created when performing pomera operations within the Semantic Search project.
-      The `operation.type` attribute MUST be set to 'pomera' for this span type.
+      The `operation.type` attribute MUST be set to 'pomera_operation' for this span type.
     span_kind: internal
     attributes:
       - ref: operation.type
         requirement_level: required
-        note: Must be set to 'pomera' for this span type
+        note: Must be set to 'pomera_operation' for this span type
       - ref: operation.id
         requirement_level: recommended
       - ref: operation.status

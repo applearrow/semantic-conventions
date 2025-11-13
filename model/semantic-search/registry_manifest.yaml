@@ -1,6 +1,6 @@
 name: semantic-search
 description: This registry contains the semantic conventions for Semantic Search project operations.
-semconv_version: 0.1.0
+semconv_version: 0.2.0
 schema_base_url: https://semantic-search.example.com/schemas/
 dependencies:
   - name: otel

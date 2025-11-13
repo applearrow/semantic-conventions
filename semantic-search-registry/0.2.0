@@ -1,0 +1,9 @@
+file_format: 1.1.0
+schema_url: https://semantic-search.example.com/schemas/0.2.0
+versions:
+  0.2.0:
+    spans:
+      changes:
+        - rename_span:
+            old_name: span.semantic_search.pomera.internal
+            new_name: span.semantic_search.pomera_operation.internal
