@@ -1,0 +1,314 @@
+groups:
+- id: registry.semantic_search
+  type: attribute_group
+  brief: |
+    Attributes for Semantic Search operations.
+  attributes:
+  - name: operation.type
+    type: string
+    brief: |
+      The type of operation being performed.
+    examples:
+    - pomera
+    - pom
+    - processing
+    requirement_level: recommended
+    stability: development
+  - name: operation.id
+    type: string
+    brief: |
+      Unique identifier for the operation.
+    examples:
+    - op-123
+    - batch-456
+    requirement_level: recommended
+    stability: development
+  - name: operation.status
+    type:
+      members:
+      - id: success
+        value: success
+        brief: Operation completed successfully
+        stability: development
+      - id: failure
+        value: failure
+        brief: Operation failed
+        stability: development
+      - id: pending
+        value: pending
+        brief: Operation is pending
+        stability: development
+    brief: |
+      The status of the operation.
+    examples:
+    - success
+    - failure
+    - pending
+    requirement_level: recommended
+    stability: development
+  lineage:
+    provenance:
+      registry_id: semantic-search
+      path: ./model/semantic-search/registry.yaml
+- id: span.semantic_search.pom.internal
+  type: span
+  brief: |
+    This span represents a semantic-search.pom operation.
+  note: |
+    This span is created when performing pom operations within the Semantic Search project. The `operation.type` attribute MUST be set to 'pom' for this span type.
+  stability: development
+  attributes:
+  - name: operation.id
+    type: string
+    brief: |
+      Unique identifier for the operation.
+    examples:
+    - op-123
+    - batch-456
+    requirement_level: recommended
+    stability: development
+  - name: operation.status
+    type:
+      members:
+      - id: success
+        value: success
+        brief: Operation completed successfully
+        stability: development
+      - id: failure
+        value: failure
+        brief: Operation failed
+        stability: development
+      - id: pending
+        value: pending
+        brief: Operation is pending
+        stability: development
+    brief: |
+      The status of the operation.
+    examples:
+    - success
+    - failure
+    - pending
+    requirement_level: recommended
+    stability: development
+  - name: error.type
+    type:
+      members:
+      - id: other
+        value: _OTHER
+        brief: |
+          A fallback error value to be used when the instrumentation doesn't define a custom value.
+        stability: stable
+    brief: |
+      Describes a class of error the operation ended with.
+    examples:
+    - timeout
+    - java.net.UnknownHostException
+    - server_certificate_invalid
+    - '500'
+    requirement_level:
+      conditionally_required: If the operation resulted in an error
+    note: |
+      The `error.type` SHOULD be predictable, and SHOULD have low cardinality.
+
+      When `error.type` is set to a type (e.g., an exception type), its
+      canonical class name identifying the type within the artifact SHOULD be used.
+
+      Instrumentations SHOULD document the list of errors they report.
+
+      The cardinality of `error.type` within one instrumentation library SHOULD be low.
+      Telemetry consumers that aggregate data from multiple instrumentation libraries and applications
+      should be prepared for `error.type` to have high cardinality at query time when no
+      additional filters are applied.
+
+      If the operation has completed successfully, instrumentations SHOULD NOT set `error.type`.
+
+      If a specific domain defines its own set of error identifiers (such as HTTP or gRPC status codes),
+      it's RECOMMENDED to:
+
+      - Use a domain-specific attribute
+      - Set `error.type` to capture all errors, regardless of whether they are defined within the domain-specific set or not.
+    stability: stable
+  - name: operation.type
+    type: string
+    brief: |
+      The type of operation being performed.
+    examples:
+    - pomera
+    - pom
+    - processing
+    requirement_level: required
+    note: Must be set to 'pom' for this span type
+    stability: development
+  span_kind: internal
+  lineage:
+    provenance:
+      registry_id: semantic-search
+      path: ./model/semantic-search/spans.yaml
+    attributes:
+      error.type:
+        source_group: registry.error
+        inherited_fields:
+        - brief
+        - examples
+        - note
+        - stability
+        locally_overridden_fields:
+        - requirement_level
+      operation.id:
+        source_group: registry.semantic_search
+        inherited_fields:
+        - brief
+        - examples
+        - note
+        - stability
+        locally_overridden_fields:
+        - requirement_level
+      operation.status:
+        source_group: registry.semantic_search
+        inherited_fields:
+        - brief
+        - examples
+        - note
+        - stability
+        locally_overridden_fields:
+        - requirement_level
+      operation.type:
+        source_group: registry.semantic_search
+        inherited_fields:
+        - brief
+        - examples
+        - stability
+        locally_overridden_fields:
+        - note
+        - requirement_level
+- id: span.semantic_search.pomera_operation.internal
+  type: span
+  brief: |
+    This span represents a semantic-search.pomera_operation operation.
+  note: |
+    This span is created when performing pomera operations within the Semantic Search project. The `operation.type` attribute MUST be set to 'pomera_operation' for this span type.
+  stability: development
+  attributes:
+  - name: operation.id
+    type: string
+    brief: |
+      Unique identifier for the operation.
+    examples:
+    - op-123
+    - batch-456
+    requirement_level: recommended
+    stability: development
+  - name: operation.status
+    type:
+      members:
+      - id: success
+        value: success
+        brief: Operation completed successfully
+        stability: development
+      - id: failure
+        value: failure
+        brief: Operation failed
+        stability: development
+      - id: pending
+        value: pending
+        brief: Operation is pending
+        stability: development
+    brief: |
+      The status of the operation.
+    examples:
+    - success
+    - failure
+    - pending
+    requirement_level: recommended
+    stability: development
+  - name: operation.type
+    type: string
+    brief: |
+      The type of operation being performed.
+    examples:
+    - pomera
+    - pom
+    - processing
+    requirement_level: required
+    note: Must be set to 'pomera_operation' for this span type
+    stability: development
+  - name: error.type
+    type:
+      members:
+      - id: other
+        value: _OTHER
+        brief: |
+          A fallback error value to be used when the instrumentation doesn't define a custom value.
+        stability: stable
+    brief: |
+      Describes a class of error the operation ended with.
+    examples:
+    - timeout
+    - java.net.UnknownHostException
+    - server_certificate_invalid
+    - '500'
+    requirement_level:
+      conditionally_required: If the operation resulted in an error
+    note: |
+      The `error.type` SHOULD be predictable, and SHOULD have low cardinality.
+
+      When `error.type` is set to a type (e.g., an exception type), its
+      canonical class name identifying the type within the artifact SHOULD be used.
+
+      Instrumentations SHOULD document the list of errors they report.
+
+      The cardinality of `error.type` within one instrumentation library SHOULD be low.
+      Telemetry consumers that aggregate data from multiple instrumentation libraries and applications
+      should be prepared for `error.type` to have high cardinality at query time when no
+      additional filters are applied.
+
+      If the operation has completed successfully, instrumentations SHOULD NOT set `error.type`.
+
+      If a specific domain defines its own set of error identifiers (such as HTTP or gRPC status codes),
+      it's RECOMMENDED to:
+
+      - Use a domain-specific attribute
+      - Set `error.type` to capture all errors, regardless of whether they are defined within the domain-specific set or not.
+    stability: stable
+  span_kind: internal
+  lineage:
+    provenance:
+      registry_id: semantic-search
+      path: ./model/semantic-search/spans.yaml
+    attributes:
+      error.type:
+        source_group: registry.error
+        inherited_fields:
+        - brief
+        - examples
+        - note
+        - stability
+        locally_overridden_fields:
+        - requirement_level
+      operation.id:
+        source_group: registry.semantic_search
+        inherited_fields:
+        - brief
+        - examples
+        - note
+        - stability
+        locally_overridden_fields:
+        - requirement_level
+      operation.status:
+        source_group: registry.semantic_search
+        inherited_fields:
+        - brief
+        - examples
+        - note
+        - stability
+        locally_overridden_fields:
+        - requirement_level
+      operation.type:
+        source_group: registry.semantic_search
+        inherited_fields:
+        - brief
+        - examples
+        - stability
+        locally_overridden_fields:
+        - note
+        - requirement_level

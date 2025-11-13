@@ -26,11 +26,7 @@ generate target="markdown" output="semantic-search-registry":
     weaver registry generate -r ./model/semantic-search {{target}} {{output}}
 
 # Resolve the registry and output to stdout
-resolve:
-    weaver registry resolve -r ./model/semantic-search
-
-# Resolve and save to file
-resolve-to-file output="resolved.yaml":
+resolve output="semantic-search-registry.yaml":
     weaver registry resolve -r ./model/semantic-search -o {{output}}
 
 # Resolve to JSON format
