@@ -1,0 +1,46 @@
+# Plantilla para registry generado desde spans existentes
+
+groups:
+# 1. Primero define los attribute groups para todos los atributos únicos
+- id: registry.my_app.common
+  type: attribute_group
+  brief: Atributos comunes de mi aplicación
+  attributes:
+  - name: operation.type
+    type: string
+    brief: Tipo de operación
+    examples: ['process', 'query', 'update']
+    requirement_level: recommended
+    stability: development
+  
+  - name: service.component  
+    type: string
+    brief: Componente del servicio
+    examples: ['api', 'worker', 'scheduler'] 
+    requirement_level: recommended
+    stability: development
+
+# 2. Luego define los spans que usan esos atributos
+- id: span.my_app.operation
+  type: span
+  span_kind: server
+  brief: Representa una operación en mi aplicación
+  attributes:
+  - ref: operation.type
+    requirement_level: required
+  - ref: service.component
+    requirement_level: recommended
+  # Agrega más referencias según los atributos encontrados en tus spans
+
+# 3. Define métricas si las tienes
+- id: metric.my_app.operation.duration
+  type: metric
+  metric_name: my_app.operation.duration
+  brief: Duración de operaciones en mi aplicación
+  instrument: histogram
+  unit: s
+  attributes:
+  - ref: operation.type
+    requirement_level: required
+  - ref: service.component
+    requirement_level: recommended

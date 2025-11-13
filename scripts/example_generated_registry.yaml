@@ -1,0 +1,47 @@
+# Registry ejemplo generado desde análisis de spans existentes
+groups:
+- id: registry.example_app.common
+  type: attribute_group  
+  brief: Atributos comunes extraídos de spans existentes
+  attributes:
+  - name: operation.name
+    type: string
+    brief: Nombre de la operación ejecutada
+    examples: ['user_login', 'data_process', 'api_call']
+    requirement_level: recommended
+    stability: development
+    
+  - name: operation.duration_ms
+    type: int
+    brief: Duración de la operación en milisegundos
+    examples: [150, 2340, 45]
+    requirement_level: recommended 
+    stability: development
+    
+  - name: service.component
+    type: string
+    brief: Componente del servicio que ejecuta la operación
+    examples: ['auth', 'api', 'worker']
+    requirement_level: recommended
+    stability: development
+
+  - name: error.occurred
+    type: boolean
+    brief: Indica si ocurrió un error durante la operación
+    examples: [true, false]
+    requirement_level: recommended
+    stability: development
+
+- id: span.example_app.operation
+  type: span
+  span_kind: internal
+  brief: Span genérico para operaciones de la aplicación
+  attributes:
+  - ref: operation.name
+    requirement_level: required
+  - ref: operation.duration_ms
+    requirement_level: recommended
+  - ref: service.component  
+    requirement_level: recommended
+  - ref: error.occurred
+    requirement_level: recommended
