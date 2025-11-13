@@ -1,22 +1,22 @@
-# Ejemplo de uso de las convenciones semánticas de Pau
+# Ejemplo de uso de las convenciones semánticas de Semantic Search
 
 ## Resumen
 
-Este ejemplo muestra cómo usar Weaver para validar que los spans `pau.pomera` y `pau.pom` 
+Este ejemplo muestra cómo usar Weaver para validar que los spans `semantic-search.pomera` y `semantic-search.pom` 
 cumplen con las convenciones semánticas definidas.
 
 ## Archivos definidos
 
-### 1. `/model/pau/registry.yaml`
-Define los atributos disponibles para las operaciones Pau:
+### 1. `/model/semantic-search/registry.yaml`
+Define los atributos disponibles para las operaciones Semantic Search:
 - `operation.type`: Tipo de operación (pomera, pom, etc.)
 - `operation.id`: Identificador único de la operación  
 - `operation.status`: Estado de la operación (success, failure, pending)
 
-### 2. `/model/pau/spans.yaml`
+### 2. `/model/semantic-search/spans.yaml`
 Define las convenciones para los spans:
-- `span.pau.pomera`: Span para operaciones pau.pomera
-- `span.pau.pom`: Span para operaciones pau.pom
+- `span.semantic_search.pomera`: Span para operaciones semantic-search.pomera
+- `span.semantic_search.pom`: Span para operaciones semantic-search.pom
 
 ## Validación con Weaver
 
@@ -44,10 +44,10 @@ docker run --rm -u $(id -u):$(id -g) \
 
 Cuando implementes instrumentación para tus spans, deberías seguir estas convenciones:
 
-### Span pau.pomera
+### Span semantic-search.pomera
 ```json
 {
-  "name": "pau.pomera",
+  "name": "semantic-search.pomera",
   "kind": "INTERNAL",
   "attributes": {
     "operation.type": "pomera",
@@ -57,10 +57,10 @@ Cuando implementes instrumentación para tus spans, deberías seguir estas conve
 }
 ```
 
-### Span pau.pom  
+### Span semantic-search.pom  
 ```json
 {
-  "name": "pau.pom",
+  "name": "semantic-search.pom",
   "kind": "INTERNAL", 
   "attributes": {
     "operation.type": "pom",
@@ -73,7 +73,7 @@ Cuando implementes instrumentación para tus spans, deberías seguir estas conve
 ### En caso de error
 ```json
 {
-  "name": "pau.pomera",
+  "name": "semantic-search.pomera",
   "kind": "INTERNAL",
   "status": {
     "code": "ERROR",
@@ -92,20 +92,20 @@ Cuando implementes instrumentación para tus spans, deberías seguir estas conve
 
 ```
 model/
-└── pau/
+└── semantic-search/
     ├── registry.yaml    # Define los atributos
     └── spans.yaml       # Define los spans
 ```
 
 ## Notas importantes
 
-1. **Nombres de spans**: Los nombres `pau.pomera` y `pau.pom` son válidos según las convenciones de nomenclatura de OpenTelemetry.
+1. **Nombres de spans**: Los nombres `semantic-search.pomera` y `semantic-search.pom` son válidos según las convenciones de nomenclatura de OpenTelemetry.
 
 2. **Atributos requeridos**: El atributo `operation.type` es obligatorio para ambos tipos de span.
 
 3. **Consistencia**: El valor de `operation.type` debe coincidir con el tipo de span:
-   - Para `pau.pomera` → `operation.type` = "pomera"
-   - Para `pau.pom` → `operation.type` = "pom"
+   - Para `semantic-search.pomera` → `operation.type` = "pomera"
+   - Para `semantic-search.pom` → `operation.type` = "pom"
 
 4. **Manejo de errores**: Cuando una operación falla, usa `error.type` y establece el estado del span como ERROR.
 

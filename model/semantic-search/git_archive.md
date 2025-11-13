@@ -38,7 +38,7 @@ mkdir -p /tmp/weaver-cache
 docker run --rm -u $(id -u):$(id -g) \
   --env HOME=/tmp \
   --mount 'type=bind,source=/tmp/weaver-cache,target=/tmp/.weaver' \
-  --mount 'type=bind,source=/ruta/a/tu/model/pau,target=/home/weaver/source,readonly' \
+  --mount 'type=bind,source=/ruta/a/tu/model/semantic-search,target=/home/weaver/source,readonly' \
   docker.io/otel/weaver:v0.19.0 registry check \
   --registry=/home/weaver/source
 ```

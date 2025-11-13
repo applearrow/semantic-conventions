@@ -31,6 +31,6 @@ All registered attributes are listed by namespace in this registry.
 
 Currently, the following namespaces exist:
 
-- [Pau](pau.md)
+- [Semantic Search](semantic-search.md)
 
 [developers recommendations]: ../../general/naming.md#recommendations-for-application-developers

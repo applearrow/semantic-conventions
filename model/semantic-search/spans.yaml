@@ -1,11 +1,11 @@
 groups:
-  - id: span.pau.pomera
+  - id: span.semantic_search.pomera.internal
     type: span
     stability: development
     brief: >
-      This span represents a pau.pomera operation.
+      This span represents a semantic-search.pomera operation.
     note: >
-      This span is created when performing pomera operations within the Pau project.
+      This span is created when performing pomera operations within the Semantic Search project.
       The `operation.type` attribute MUST be set to 'pomera' for this span type.
     span_kind: internal
     attributes:
@@ -20,13 +20,13 @@ groups:
         requirement_level:
           conditionally_required: If the operation resulted in an error
 
-  - id: span.pau.pom
+  - id: span.semantic_search.pom.internal
     type: span
     stability: development
     brief: >
-      This span represents a pau.pom operation.
+      This span represents a semantic-search.pom operation.
     note: >
-      This span is created when performing pom operations within the Pau project.
+      This span is created when performing pom operations within the Semantic Search project.
       The `operation.type` attribute MUST be set to 'pom' for this span type.
     span_kind: internal
     attributes:

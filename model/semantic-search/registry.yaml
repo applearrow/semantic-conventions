@@ -1,8 +1,8 @@
 groups:
-  - id: registry.pau
+  - id: registry.semantic_search
     type: attribute_group
     brief: >
-      Attributes for Pau project operations.
+      Attributes for Semantic Search operations.
     attributes:
       - id: operation.type
         stability: development
