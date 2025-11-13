@@ -42,23 +42,23 @@ check-debug:
 
 # Generate artifacts for a specific target
 [group('generation')]
-generate target="markdown" output="semantic-search-registry":
-    weaver registry generate -r {{MODEL_DIR}} {{target}} {{REGISTRIES_DIR}}/{{output}}
+generate target="markdown":
+    weaver registry generate -r {{MODEL_DIR}} {{target}} {{REGISTRIES_DIR}}
 
 # Resolve the registry and output to stdout
 [group('generation')]
-resolve output="semantic-search-registry.yaml":
-    weaver registry resolve -r {{MODEL_DIR}} -o {{REGISTRIES_DIR}}/{{output}}
+resolve:
+    weaver registry resolve -r {{MODEL_DIR}} -o {{REGISTRIES_DIR}}
 
 # Resolve to JSON format
 [group('generation')]
-resolve-json output="resolved.json":
-    weaver registry resolve -r {{MODEL_DIR}} -f json -o {{REGISTRIES_DIR}}/{{output}}
+resolve-json:
+    weaver registry resolve -r {{MODEL_DIR}} -f json -o {{REGISTRIES_DIR}}
 
 # Generate JSON schema
 [group('generation')]
-json-schema output="schema.json":
-    weaver registry json-schema -o {{REGISTRIES_DIR}}/{{output}}
+json-schema:
+    weaver registry json-schema -o {{REGISTRIES_DIR}}
 
 # ================================
 # SEARCH AND ANALYSIS
@@ -90,8 +90,8 @@ diff baseline:
 
 # Update markdown files
 [group('maintenance')]
-update-markdown target markdown_dir="docs":
-    weaver registry update-markdown -r {{MODEL_DIR}} --target {{target}} {{markdown_dir}}
+update-docs markdown_dir="docs":
+    weaver registry update-markdown --registry ./model --templates templates --target markdown --future -D registry_base_url=/docs/registry/ {{markdown_dir}}
 
 # ================================
 # TESTING AND DEVELOPMENT
@@ -116,7 +116,7 @@ quick-capture:
 capture-spans port="4317":
     @echo "Starting OTLP listener on port {{port}}..."
     @echo "Send your application spans to localhost:{{port}}"
-    @echo "Analysis will be saved to {{CAPTURE_DIR}}/{{output}}"
+    @echo "Analysis will be saved to {{CAPTURE_DIR}}"
     @echo "Will stop after {{DEFAULT_TIMEOUT}} seconds of inactivity"
     @echo "Press Ctrl+C to stop manually or use curl http://localhost:4320/stop"
     weaver registry live-check \
