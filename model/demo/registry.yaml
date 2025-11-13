@@ -3,11 +3,23 @@ groups:
     type: attribute_group
     brief: Demo application specific attributes
     attributes:
-      - id: app
+      # Application-level attributes
+      - id: demo.app
         type: string
-        brief: Application name for demo purposes
+        brief: Application name for demo purposes (properly namespaced)
         examples: ["o11y-demo", "test-app"]
         stability: development
+      - id: app
+        type: string
+        brief: Application name for demo purposes (legacy format without namespace)
+        note: "DEPRECATED: Use `demo.app` instead for proper namespacing."
+        examples: ["o11y-demo", "test-app"]
+        stability: development
+        deprecated:
+          reason: renamed
+          renamed_to: demo.app
+      
+      # Function-related attributes
       - id: function.name
         type: string  
         brief: Name of the function being traced
@@ -49,3 +61,48 @@ groups:
         note: "RECOMMENDED to use `function.result` instead for proper namespacing."
         examples: ["[3, 6, 9, 12, 15]", "42", "success"]
         stability: development
+        deprecated:
+          reason: renamed
+          renamed_to: function.result
+      
+      # Validation-related attributes
+      - id: validation.result
+        type: string
+        brief: Result of a validation operation
+        examples: ["passed", "failed", "skipped"]
+        stability: development
+      
+      # Item processing attributes
+      - id: item.value
+        type: string
+        brief: Value of an item being processed
+        examples: ["1", "2", "hello", "42.5"]
+        stability: development
+      - id: items.count
+        type: int
+        brief: Number of items being processed
+        examples: [1, 4, 10, 100]
+        stability: development
+      
+      # Workflow-related attributes
+      - id: workflow.action
+        type: string
+        brief: Action being performed in a workflow
+        examples: ["login", "logout", "create", "delete", "update"]
+        stability: development
+      
+      # Authentication method attribute
+      - id: demo.method
+        type: string
+        brief: Authentication or processing method used in demo
+        examples: ["password", "oauth", "api_key", "certificate"]
+        stability: development
+      - id: method
+        type: string
+        brief: Method used (legacy format without namespace)
+        note: "RECOMMENDED to use `demo.method` instead for proper namespacing."
+        examples: ["password", "oauth", "api_key", "certificate"]
+        stability: development
+        deprecated:
+          reason: renamed
+          renamed_to: demo.method
