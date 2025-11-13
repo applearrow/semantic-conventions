@@ -2,6 +2,9 @@
 .idea
 *.iml
 
+# Captured telemetry data
+/captured
+
 # Eclipse
 .classpath
 .project

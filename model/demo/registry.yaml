@@ -1,0 +1,51 @@
+groups:
+  - id: registry.demo
+    type: attribute_group
+    brief: Demo application specific attributes
+    attributes:
+      - id: app
+        type: string
+        brief: Application name for demo purposes
+        examples: ["o11y-demo", "test-app"]
+        stability: development
+      - id: function.name
+        type: string  
+        brief: Name of the function being traced
+        examples: ["process_data", "simple_function", "calculate_sum"]
+        stability: development
+      - id: function.module
+        type: string
+        brief: Module or file where the function is defined
+        examples: ["__main__", "utils", "processors"]
+        stability: development
+      - id: function.result
+        type: string
+        brief: String representation of function return value
+        examples: ["[3, 6, 9, 12, 15]", "42", "success"]
+        stability: development
+      - id: function.args
+        type: template[string]
+        brief: Function arguments by position
+        note: >
+          The argument position is specified as the template parameter.
+          For example, `function.args.0` represents the first argument,
+          `function.args.1` represents the second argument, etc.  
+        examples: ["[1, 2, 3, 4, 5]", "3", "{'key': 'value'}"]
+        stability: development
+      - id: args
+        type: template[string]
+        brief: Function arguments by position (legacy format)
+        note: >
+          Legacy format where arguments are stored as `args.{position}`.
+          The argument position is specified as the template parameter.
+          For example, `args.0` represents the first argument,
+          `args.1` represents the second argument, etc.
+          RECOMMENDED to use `function.args.{position}` instead.
+        examples: ["[1, 2, 3, 4, 5]", "3", "{'key': 'value'}"]
+        stability: development
+      - id: result
+        type: string
+        brief: Function result (legacy format without namespace)
+        note: "RECOMMENDED to use `function.result` instead for proper namespacing."
+        examples: ["[3, 6, 9, 12, 15]", "42", "success"]
+        stability: development

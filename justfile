@@ -113,7 +113,7 @@ quick-capture:
 
 # Capture spans from real application to analyze and generate registry
 [group('capture')]
-capture-spans output="spans.json" port="4317":
+capture-spans port="4317":
     @echo "Starting OTLP listener on port {{port}}..."
     @echo "Send your application spans to localhost:{{port}}"
     @echo "Analysis will be saved to {{CAPTURE_DIR}}/{{output}}"
@@ -124,23 +124,23 @@ capture-spans output="spans.json" port="4317":
         --otlp-grpc-port {{port}} \
         --admin-port 4320 \
         --format json \
-        --output {{CAPTURE_DIR}}/{{output}} \
+        --output {{CAPTURE_DIR}} \
         --inactivity-timeout {{DEFAULT_TIMEOUT}} \
         --no-stream
 
 # Capture spans with custom registry validation (for existing apps)
 [group('capture')]
-capture-validate registry output="analysis.json" port="4317":
+capture-validate registry port="4317":
     @echo "Starting span capture with validation against {{registry}}..."
     @echo "Send your application spans to localhost:{{port}}"
-    @echo "Analysis will be saved to {{CAPTURE_DIR}}/{{output}}"
+    @echo "Analysis will be saved to {{CAPTURE_DIR}}"
     weaver registry live-check \
         --registry {{registry}} \
         --input-source otlp \
         --otlp-grpc-port {{port}} \
         --admin-port 4320 \
         --format json \
-        --output {{CAPTURE_DIR}}/{{output}} \
+        --output {{CAPTURE_DIR}} \
         --inactivity-timeout {{DEFAULT_TIMEOUT}} \
         --no-stream
 
