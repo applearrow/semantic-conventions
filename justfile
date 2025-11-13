@@ -7,6 +7,10 @@ DEFAULT_TIMEOUT := '60'
 @_:
     just --list
 
+# Render README.md using rich markdown
+readme:
+    python -m rich.markdown PLAYGROUND.md
+
 # ================================
 # VALIDATION AND CHECKING
 # ================================
