@@ -144,3 +144,27 @@ capture-validate registry port="4317":
         --inactivity-timeout {{DEFAULT_TIMEOUT}} \
         --no-stream
 
+# ================================
+# SDK LAG FILTERING
+# ================================
+
+# Filter known SDK lag violations from analysis results
+[group('analysis')]
+filter-sdk-lag analysis_file:
+    @echo "Filtering known SDK lag violations from {{analysis_file}}..."
+    ./scripts/filter_violations.sh {{analysis_file}}
+
+# Complete workflow: capture + validate + filter for SDK version
+[group('capture')]
+capture-and-filter-sdk version="v1.38.0" output="spans_filtered_analysis.json" port="4317":
+    @echo "Complete workflow for SDK version {{version}}..."
+    @echo "1. Checking out to semantic conventions {{version}}"
+    git checkout {{version}}
+    @echo "2. Starting capture with validation..."
+    just capture-validate ./model {{output}} {{port}}
+    @echo "3. Filtering SDK lag violations..."
+    ./scripts/filter_violations.sh {{output}}
+    @echo "4. Returning to main branch..."
+    git checkout main
+    @echo "✅ Complete! Check {{output}}_filtered.json for results"
+
