@@ -34,7 +34,7 @@ groups:
         type: string
         brief: String representation of function return value
         examples: ["[3, 6, 9, 12, 15]", "42", "success"]
-        stability: development
+        stability: stable
       - id: function.args
         type: template[string]
         brief: Function arguments by position
@@ -43,7 +43,7 @@ groups:
           For example, `function.args.0` represents the first argument,
           `function.args.1` represents the second argument, etc.  
         examples: ["[1, 2, 3, 4, 5]", "3", "{'key': 'value'}"]
-        stability: development
+        stability: stable
       - id: args
         type: template[string]
         brief: Function arguments by position (legacy format)
