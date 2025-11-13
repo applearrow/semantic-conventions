@@ -109,7 +109,7 @@ emit:
 # Quick start: capture spans and save results
 [group('capture')]
 quick-capture:
-    just capture-spans captured_telemetry.json 4317
+    just capture-spans 4317
 
 # Capture spans from real application to analyze and generate registry
 [group('capture')]
