@@ -158,7 +158,7 @@ capture-validate registry port="4317":
 
 # Stop the active capture process
 [group('capture')]
-stop-capture:
+stop:
     @echo "Stopping active capture process..."
     curl -X POST http://localhost:4320/stop
 
