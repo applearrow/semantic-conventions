@@ -120,6 +120,7 @@ capture-spans port="4317":
     @echo "Will stop after {{DEFAULT_TIMEOUT}} seconds of inactivity"
     @echo "Press Ctrl+C to stop manually or use curl http://localhost:4320/stop"
     weaver registry live-check \
+        -r ./model \
         --input-source otlp \
         --otlp-grpc-port {{port}} \
         --admin-port 4320 \
@@ -134,6 +135,7 @@ capture-spans-to-file port="4317":
     @echo "Will stop after {{DEFAULT_TIMEOUT}} seconds of inactivity"
     @echo "Press Ctrl+C to stop manually or use curl http://localhost:4320/stop"
     weaver registry live-check \
+        -r ./model \
         --input-source otlp \
         --otlp-grpc-port {{port}} \
         --admin-port 4320 \
