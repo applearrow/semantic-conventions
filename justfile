@@ -2,7 +2,7 @@
 REGISTRIES_DIR := './registries'
 MODEL_DIR := './model/semantic-search'
 CAPTURE_DIR := './captured'
-DEFAULT_TIMEOUT := '120'
+DEFAULT_TIMEOUT := '60'
 
 @_:
     just --list
@@ -116,6 +116,20 @@ quick-capture:
 capture-spans port="4317":
     @echo "Starting OTLP listener on port {{port}}..."
     @echo "Send your application spans to localhost:{{port}}"
+    @echo "Analysis will be streamed to console"
+    @echo "Will stop after {{DEFAULT_TIMEOUT}} seconds of inactivity"
+    @echo "Press Ctrl+C to stop manually or use curl http://localhost:4320/stop"
+    weaver registry live-check \
+        --input-source otlp \
+        --otlp-grpc-port {{port}} \
+        --admin-port 4320 \
+        --inactivity-timeout {{DEFAULT_TIMEOUT}}
+
+# Capture spans and save analysis to files
+[group('capture')]
+capture-spans-to-file port="4317":
+    @echo "Starting OTLP listener on port {{port}}..."
+    @echo "Send your application spans to localhost:{{port}}"
     @echo "Analysis will be saved to {{CAPTURE_DIR}}"
     @echo "Will stop after {{DEFAULT_TIMEOUT}} seconds of inactivity"
     @echo "Press Ctrl+C to stop manually or use curl http://localhost:4320/stop"
@@ -123,7 +137,6 @@ capture-spans port="4317":
         --input-source otlp \
         --otlp-grpc-port {{port}} \
         --admin-port 4320 \
-        --format json \
         --output {{CAPTURE_DIR}} \
         --inactivity-timeout {{DEFAULT_TIMEOUT}} \
         --no-stream
@@ -133,16 +146,19 @@ capture-spans port="4317":
 capture-validate registry port="4317":
     @echo "Starting span capture with validation against {{registry}}..."
     @echo "Send your application spans to localhost:{{port}}"
-    @echo "Analysis will be saved to {{CAPTURE_DIR}}"
+    @echo "Analysis will be streamed to console"
     weaver registry live-check \
         --registry {{registry}} \
         --input-source otlp \
         --otlp-grpc-port {{port}} \
         --admin-port 4320 \
-        --format json \
-        --output {{CAPTURE_DIR}} \
-        --inactivity-timeout {{DEFAULT_TIMEOUT}} \
-        --no-stream
+        --inactivity-timeout {{DEFAULT_TIMEOUT}}
+
+# Stop the active capture process
+[group('capture')]
+stop-capture:
+    @echo "Stopping active capture process..."
+    curl -X POST http://localhost:4320/stop
 
 # ================================
 # SDK LAG FILTERING
@@ -153,18 +169,4 @@ capture-validate registry port="4317":
 filter-sdk-lag analysis_file:
     @echo "Filtering known SDK lag violations from {{analysis_file}}..."
     ./scripts/filter_violations.sh {{analysis_file}}
-
-# Complete workflow: capture + validate + filter for SDK version
-[group('capture')]
-capture-and-filter-sdk version="v1.38.0" output="spans_filtered_analysis.json" port="4317":
-    @echo "Complete workflow for SDK version {{version}}..."
-    @echo "1. Checking out to semantic conventions {{version}}"
-    git checkout {{version}}
-    @echo "2. Starting capture with validation..."
-    just capture-validate ./model {{output}} {{port}}
-    @echo "3. Filtering SDK lag violations..."
-    ./scripts/filter_violations.sh {{output}}
-    @echo "4. Returning to main branch..."
-    git checkout main
-    @echo "✅ Complete! Check {{output}}_filtered.json for results"
 
